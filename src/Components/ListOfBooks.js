@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import BookShelf from "./MyreadPage";
-import * as BooksAPI from "../BooksAPI";
+import * as fetchBooksFromAPI from "../BooksAPI";
+import { Link } from "react-router-dom";
+
 
 const listOfBooks = (React.FunctionComponent = () => {
     // Data used in the childelement are defined in this
@@ -14,9 +15,9 @@ const listOfBooks = (React.FunctionComponent = () => {
         titles: ['Currently Reading', 'Want To Read', 'Read']
     };
     const [data, setData] = useState(teamData);
-    //using hard coded data, which can be also changed to API call later if needed.
+    //using hard coded data, which can be also Bookd to API call later if needed.
     useEffect(() => {
-        BooksAPI.getAll()
+        fetchBooksFromAPI.getAll()
             .then((books) => {
                 console.log(books)
                 setData({
@@ -29,12 +30,12 @@ const listOfBooks = (React.FunctionComponent = () => {
                 })
             });
     }, [setData]);
-    const handleChange = (book, shelf) => {
-        BooksAPI.update(book, shelf)
+    const handleBook = (book, shelf) => {
+        fetchBooksFromAPI.update(book, shelf)
             .then(() => {
-                BooksAPI.getAll()
+                fetchBooksFromAPI.getAll()
                     .then((books) => {
-                        this.setState({
+                        this.setData({
                             currentlyReading: books.filter((book) => book.shelf === "currentlyReading"),
                             wantToRead: books.filter((book) => book.shelf === "wantToRead"),
                             read: books.filter((book) => book.shelf === "read")
@@ -55,7 +56,7 @@ const listOfBooks = (React.FunctionComponent = () => {
                                 key={index}
                                 title={title}
                                 bookshelf={data.bookStatus}
-                                onChangeBook={handleChange}
+                                handleBookOnTheShelf={handleBook}
                             />
                         })}
                     </div>

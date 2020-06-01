@@ -12,7 +12,7 @@ class Book extends Component {
                         style={{ width: 128, height: 193, backgroundImage: `url("${this.props.books.imageLinks && this.props.books.imageLinks.thumbnail}")` }}
                     />
                     <div className="book-shelf-changer">
-                        <select onChange={this.handleChange} >
+                        <select onChange={this.onSelection} >
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>

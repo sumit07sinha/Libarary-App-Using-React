@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { search } from "../BooksAPI";
+import * as fetchBooksFromAPI from "../BooksAPI";
 import Book from "./Book"
 class searchBooksOnline extends Component {
 
@@ -17,13 +17,26 @@ class searchBooksOnline extends Component {
         console.log(inputValue);
     }
     searchBooks = () => {
-        search(this.state.query)
+        fetchBooksFromAPI.search(this.state.query)
             .then((books) => {
 
                 console.log(books)
                 this.setState({
                     books: [books]
                 })
+            })
+    }
+    handleBook = (book, shelf) => {
+        fetchBooksFromAPI.update(book, shelf)
+            .then(() => {
+                fetchBooksFromAPI.getAll()
+                    .then((books) => {
+                        this.setState({
+                            currentlyReading: books.filter((book) => book.shelf === "currentlyReading"),
+                            wantToRead: books.filter((book) => book.shelf === "wantToRead"),
+                            read: books.filter((book) => book.shelf === "read")
+                        })
+                    })
             })
     }
     render() {
@@ -49,6 +62,7 @@ class searchBooksOnline extends Component {
                             <li key={b.id}>
                                 <Book
                                     books={b}
+                                    onSelection={this.handleBook}
                                 />
                             </li>)
                         )))}

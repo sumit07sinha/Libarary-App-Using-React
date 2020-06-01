@@ -2,10 +2,10 @@ import React from 'react'
 import Book from "./Book";
 
 function BookShelf(props) {
-    const { title, bookshelf, onChangeBook } = props
+    const { title, bookshelf, handleBookOnTheShelf } = props
     console.log(props);
     return (
-        <div className="bookshelf">
+        (<div className="bookshelf">
             <h2 className="bookshelf-title">{title}</h2>
             <div className="bookshelf-books">
                 <ol className="books-grid">
@@ -13,7 +13,7 @@ function BookShelf(props) {
                         <li key={book.id}>
                             <Book
                                 books={book}
-                                onChange={onChangeBook}
+                                onSelection={handleBookOnTheShelf}
                             />
                         </li>
                     ))}
@@ -21,7 +21,8 @@ function BookShelf(props) {
                 </ol>
             </div>
         </div>
-    )
+        ))
+
 }
 
 export default BookShelf
