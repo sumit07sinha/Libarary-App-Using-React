@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import * as fetchBooksFromAPI from "../BooksAPI";
-import Book from "./Book"
+import BookDesign from "./Book"
 class searchBooksOnline extends Component {
 
     constructor(props) {
@@ -60,7 +60,7 @@ class searchBooksOnline extends Component {
                     <ol className="books-grid">
                         {this.state.books && (this.state.books.map((bs) => (bs.map((b) =>
                             <li key={b.id}>
-                                <Book
+                                <BookDesign
                                     books={b}
                                     onSelection={this.handleBook}
                                 />

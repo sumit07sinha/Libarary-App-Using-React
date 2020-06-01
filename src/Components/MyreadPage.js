@@ -1,7 +1,7 @@
 import React from 'react'
-import Book from "./Book";
+import BookDesign from "./Book";
 
-function BookShelf(props) {
+const BookStore = (props) => {
     const { title, bookshelf, handleBookOnTheShelf } = props
     console.log(props);
     return (
@@ -11,7 +11,7 @@ function BookShelf(props) {
                 <ol className="books-grid">
                     {bookshelf.currentlyReading.map((book) => (
                         <li key={book.id}>
-                            <Book
+                            <BookDesign
                                 books={book}
                                 onSelection={handleBookOnTheShelf}
                             />
@@ -25,4 +25,4 @@ function BookShelf(props) {
 
 }
 
-export default BookShelf
+export default BookStore

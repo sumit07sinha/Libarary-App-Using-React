@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import BookShelf from "./MyreadPage";
+import React, { useState, useEffect, useCallback } from "react";
+import BookStore from "./MyreadPage";
 import * as fetchBooksFromAPI from "../BooksAPI";
 import { Link } from "react-router-dom";
 
@@ -30,7 +30,7 @@ const listOfBooks = (React.FunctionComponent = () => {
                 })
             });
     }, [setData]);
-    const handleBook = (book, shelf) => {
+    const handleBook = useCallback((book, shelf) => {
         fetchBooksFromAPI.update(book, shelf)
             .then(() => {
                 fetchBooksFromAPI.getAll()
@@ -43,6 +43,7 @@ const listOfBooks = (React.FunctionComponent = () => {
                     })
             })
     }
+    )
     return (
         <>
             <div className="list-books">
@@ -52,7 +53,7 @@ const listOfBooks = (React.FunctionComponent = () => {
                 <div className="list-books-content">
                     <div>
                         {teamData.titles.map((title, index) => {
-                            return <BookShelf
+                            return <BookStore
                                 key={index}
                                 title={title}
                                 bookshelf={data.bookStatus}
