@@ -35,14 +35,14 @@ const listOfBooks = (React.FunctionComponent = () => {
             .then(() => {
                 fetchBooksFromAPI.getAll()
                     .then((books) => {
-                        this.setData({
+                        setData({
                             currentlyReading: books.filter((book) => book.shelf === "currentlyReading"),
                             wantToRead: books.filter((book) => book.shelf === "wantToRead"),
                             read: books.filter((book) => book.shelf === "read")
                         })
                     })
             })
-    }
+    }, [setData]
     )
     return (
         <>

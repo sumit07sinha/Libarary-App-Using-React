@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 
 class BookDesign extends Component {
-
+    onChange = (selectedValue) => {
+        this.props.onSelection(this.props.books, selectedValue)
+    }
     render() {
 
         return (
@@ -12,7 +14,7 @@ class BookDesign extends Component {
                         style={{ width: 128, height: 193, backgroundImage: `url("${this.props.books.imageLinks && this.props.books.imageLinks.thumbnail}")` }}
                     />
                     <div className="book-shelf-changer">
-                        <select onChange={this.onSelection} >
+                        <select onChange={(event) => this.onChange(event.target.value)} >
                             <option value="move" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>

@@ -9,16 +9,32 @@ const BookStore = (props) => {
             <h2 className="bookshelf-title">{title}</h2>
             <div className="bookshelf-books">
                 <ol className="books-grid">
-                    {bookshelf.currentlyReading.map((book) => (
+                    {(title === "Currently Reading") && (bookshelf.currentlyReading.map((book) => (
                         <li key={book.id}>
                             <BookDesign
                                 books={book}
                                 onSelection={handleBookOnTheShelf}
                             />
                         </li>
-                    ))}
-
-                </ol>
+                    )))}</ol>
+                <ol className="books-grid">
+                    {(title === "Want To Read") && (bookshelf.wantToRead.map((book) => (
+                        <li key={book.id}>
+                            <BookDesign
+                                books={book}
+                                onSelection={handleBookOnTheShelf}
+                            />
+                        </li>
+                    )))}</ol>
+                <ol className="books-grid">
+                    {(title === "Read") && (bookshelf.read.map((book) => (
+                        <li key={book.id}>
+                            <BookDesign
+                                books={book}
+                                onSelection={handleBookOnTheShelf}
+                            />
+                        </li>
+                    )))}</ol>
             </div>
         </div>
         ))
