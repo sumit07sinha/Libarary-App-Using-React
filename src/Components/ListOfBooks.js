@@ -1,49 +1,17 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import BookStore from "./MyreadPage";
-import * as fetchBooksFromAPI from "../BooksAPI";
 import { Link } from "react-router-dom";
+import useBookShelfApis from"../Hooks/bookShelfHook";
 
 
-const listOfBooks = (React.FunctionComponent = () => {
-    // Data used in the childelement are defined in this
-    const teamData = {
-        bookStatus: {
-            currentlyReading: [],
-            wantToRead: [],
-            read: []
-        },
-        titles: ['Currently Reading', 'Want To Read', 'Read']
-    };
-    const [data, setData] = useState(teamData);
-    //using hard coded data, which can be also Bookd to API call later if needed.
+const listOfBooks =()=>{
+    const{data,teamData, setData, handleBook,getAllBooks}=useBookShelfApis();
+
     useEffect(() => {
-        fetchBooksFromAPI.getAll()
-            .then((books) => {
-                console.log(books)
-                setData({
-                    bookStatus: {
-                        currentlyReading: books.filter((book) => book.shelf === "currentlyReading"),
-                        wantToRead: books.filter((book) => book.shelf === "wantToRead"),
-                        read: books.filter((book) => book.shelf === "read")
-                    }
-
-                })
-            });
+        getAllBooks();
     }, [setData]);
-    const handleBook = useCallback((book, shelf) => {
-        fetchBooksFromAPI.update(book, shelf)
-            .then(() => {
-                fetchBooksFromAPI.getAll()
-                    .then((books) => {
-                        setData({
-                            currentlyReading: books.filter((book) => book.shelf === "currentlyReading"),
-                            wantToRead: books.filter((book) => book.shelf === "wantToRead"),
-                            read: books.filter((book) => book.shelf === "read")
-                        })
-                    })
-            })
-    }, [setData]
-    )
+
+
     return (
         <>
             <div className="list-books">
@@ -73,6 +41,6 @@ const listOfBooks = (React.FunctionComponent = () => {
             </div>
         </>
     );
-});
+};
 
 export default listOfBooks;
